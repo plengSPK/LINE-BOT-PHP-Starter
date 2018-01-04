@@ -29,11 +29,8 @@ if (!is_null($events['events'])) {
 
 					// Build message to reply back
 					$messages = [
-						'type' => 'location',
-						'title' => $location,			
-						'address' => $address,
-						'latitude' => $lat,
-						'longitude' => $lng
+						'type' => 'text',
+						'text' => $location,	
 					];
 				}
 				else {				
