@@ -13,14 +13,37 @@ if (!is_null($events['events'])) {
 			if ($event['message']['type'] == 'text') {
 				// Get text sent
 				$text = $event['message']['text'];
-				// Get replyToken
-				$replyToken = $event['replyToken'];
+				
+				if (strpos($text, 'where') !== false) {
+					$location = str_replace('where', '', $text);
+					$maps_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $location;
+					$maps_json = file_get_contents($maps_url);
+					$maps_array = json_decode($maps_json, true);
+					
+					$lat = $maps_array['results'][0]['geometry']['location']['lat'];
+					$lng = $maps_array['results'][0]['geometry']['location']['lng'];
+					
+					// Get replyToken
+					$replyToken = $event['replyToken'];
 
-				// Build message to reply back
-				$messages = [
-					'type' => 'text',
-					'text' => $text
-				];
+					// Build message to reply back
+					$messages = [
+						'type' => 'location',
+						'title' => $location,						
+						'latitude' => $lat,
+						'longitude' => $lng
+					];
+				}
+				else {				
+					// Get replyToken
+					$replyToken = $event['replyToken'];
+
+					// Build message to reply back
+					$messages = [
+						'type' => 'text',
+						'text' => $text
+					];
+				}
 			}
 			if ($event['message']['type'] == 'sticker') {
 				$packageId = $event['message']['packageId'];
