@@ -20,6 +20,7 @@ if (!is_null($events['events'])) {
 					$maps_json = file_get_contents($maps_url);
 					$maps_array = json_decode($maps_json, true);
 					
+					$address = $maps_array['results'][0]['formatted_address'];
 					$lat = $maps_array['results'][0]['geometry']['location']['lat'];
 					$lng = $maps_array['results'][0]['geometry']['location']['lng'];
 					
@@ -29,7 +30,8 @@ if (!is_null($events['events'])) {
 					// Build message to reply back
 					$messages = [
 						'type' => 'location',
-						'title' => $location,						
+						'title' => $location,			
+						'address' => $address,
 						'latitude' => $lat,
 						'longitude' => $lng
 					];
