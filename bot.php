@@ -13,8 +13,9 @@ if (!is_null($events['events'])) {
 			if ($event['message']['type'] == 'text') {
 				// Get text sent
 				$text = $event['message']['text'];
+				$text_check = strtolower($text);
 				
-				if (strpos($text, 'where') !== false) {
+				if (strpos($text_check, 'where') !== false) {
 					$location = str_replace('where', '', $text);					
           				$location = str_replace(' ', '', $location);
 					$maps_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $location;
