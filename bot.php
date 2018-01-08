@@ -37,9 +37,6 @@ if (!is_null($events['events'])) {
 						'longitude' => $lng
 					];
 				}
-				elseif(strpos($text_check, 'where') !== false) {
-					
-				}
 				else {				
 					// Get replyToken
 					$replyToken = $event['replyToken'];
