@@ -37,6 +37,20 @@ if (!is_null($events['events'])) {
 						'longitude' => $lng
 					];
 				}
+				elseif(strpos(strtolower($text), 'เท่าไหร่คะ') !== false){
+					$array = [];
+					preg_match_all('/-?\d+(?:\.\d+)?+/', $text, $array);
+					$result = $array[0]+$array[1];
+					
+					// Get replyToken
+					$replyToken = $event['replyToken'];
+
+					// Build message to reply back
+					$messages = [
+						'type' => 'text',
+						'text' => $result
+					];
+				}
 				else {				
 					// Get replyToken
 					$replyToken = $event['replyToken'];
