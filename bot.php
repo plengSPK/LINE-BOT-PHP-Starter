@@ -13,10 +13,9 @@ if (!is_null($events['events'])) {
 			if ($event['message']['type'] == 'text') {
 				// Get text sent
 				$text = $event['message']['text'];
-				$text_check = strtolower($text);
 				
-				if (strpos($text_check, 'where') !== false) {
-					$location = str_replace('where', '', $text_check);					
+				if (strpos(strtolower($text), 'where') !== false) {
+					$location = str_ireplace('where', '', $text);					
           				$location = str_replace(' ', '', $location);
 					$maps_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $location;
 					$maps_json = file_get_contents($maps_url);
@@ -37,6 +36,9 @@ if (!is_null($events['events'])) {
 						'latitude' => $lat,
 						'longitude' => $lng
 					];
+				}
+				elseif(strpos($text_check, 'where') !== false) {
+					
 				}
 				else {				
 					// Get replyToken
